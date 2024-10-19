@@ -67,8 +67,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 The Wildfire Detection Model is a machine learning-based solution designed to identify and locate wildfires in satellite images. Utilizing advanced techniques in computer vision and deep learning, this project aims to provide timely and accurate detection of wildfires, facilitating early intervention and prevention efforts. The model leverages a convolutional neural network (CNN) architecture, trained on a dataset of labeled satellite images, to detect fire-like regions with high accuracy.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -76,7 +74,6 @@ The Wildfire Detection Model is a machine learning-based solution designed to id
 
 
 ### Built With
-
 * Pandas
 * Numpy
 * OpenCV
