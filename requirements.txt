@@ -1,0 +1,10 @@
+scrapy
+flask
+Pillow
+numpy
+tensorflow
+pandas
+pathlib
+matplotlib
+albumentations
+opencv-python

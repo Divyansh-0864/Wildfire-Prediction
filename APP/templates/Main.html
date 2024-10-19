@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Forest Fire Detection</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Main.css') }}">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <h2 class="team-name">Binary Bandits</h2>
+            <a href="Main.html"><img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Binary Bandits Logo"></a>
+        </nav>
+    </header>
+	<div>
+		<div class="transbox">
+           	    <img id="previewImage" src="#" alt="Preview" style="display:none;">
+            	    <form id="imageForm" enctype="multipart/form-data">
+                    <div class="buttons">
+                        <input type="button" id="get_file" value="Upload Image">
+                        <input type="file" id="my_file" accept="image/*" onchange="handleImageSelection(event)">
+                        <button type="button" class="process-img" onclick="processImage()">Process Image</button>
+                    </div>
+                	<h1 id="resultText"></h1>
+            	    </form>
+
+                <div id="resultImages" style="display:none;">
+                    <h3>Bounding Box Image:</h3>
+                    <img id="bboxImage" src="#" alt="Bounding Box" style="max-width: 100%; height: auto;">
+                    <h3>Fire Mask Image:</h3>
+                    <img id="maskImage" src="#" alt="Fire Mask" style="max-width: 100%; height: auto;">
+                </div>
+		</div>
+	</div>
+    
+</body>
+<script>
+    function handleImageSelection(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = reader.result;
+            previewImage.style.display = 'block';
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    document.getElementById('get_file').onclick = function() {
+        document.getElementById('my_file').click();
+    };
+
+    function processImage() {
+        const imageFile = document.getElementById('my_file').files[0];
+        const resultText = document.getElementById('resultText');
+        const resultImages = document.getElementById('resultImages');
+        const bboxImage = document.getElementById('bboxImage');
+        const maskImage = document.getElementById('maskImage');
+
+        if (!imageFile) {
+            resultText.textContent = 'Please upload an image!';
+            return;
+        }
+
+        let formData = new FormData();
+        formData.append('image', imageFile);
+        
+        fetch('/process_image', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            resultText.textContent = result.result;
+
+            if (result.bbox_image && result.mask_image) {
+                bboxImage.src = result.bbox_image;
+                maskImage.src = result.mask_image;
+                resultImages.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            resultText.textContent = 'Error: ' + error.message;
+        });
+    }
+</script>
+</html>
