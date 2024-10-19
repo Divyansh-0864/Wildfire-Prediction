@@ -77,8 +77,12 @@ The Wildfire Detection Model is a machine learning-based solution designed to id
 
 ### Built With
 
-* [![Pandas][pandas.pydata.org]][pandas-url]
-* [![Next][Next.js]][Next-url]
+* Pandas
+* Numpy
+* OpenCV
+* Tensorflow
+* Keras
+* Flask
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
